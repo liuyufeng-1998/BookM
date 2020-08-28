@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 /*
 Controller把普通的pojo标记为一个控制器（就能接收请求、返回数据）
@@ -34,20 +33,34 @@ public class UserController {
      * @param
      * @return user的信息（json格式），我们的login方法上使用了@ResponseBody注解后，会自动返回json数据
      */
-    @RequestMapping(value = "login",method = {RequestMethod.POST})
+   @RequestMapping(value = "login",method = {RequestMethod.POST})
     @ResponseBody
-    public Result login(String username,String password){
-        System.out.println("username: "+username);
-        System.out.println("password: "+password);
-        User user=userService.login(username,password);
+    //public Result login(String username, String password){
+    public Result login(@RequestBody UserDto userDto){
+        System.out.println("username: "+userDto.getUsername());
+        System.out.println("password: "+userDto.getPassword());
+        User user=userService.login(userDto.getUsername(),userDto.getPassword());
         if(user!=null){
             return Result.succ(user);
         }else{
             return Result.fail("请求失败");
         }
     }
-    @RequestMapping("saveUser")
-    public void saveUser(String user){
+    @RequestMapping(value = "viewUserById",method = RequestMethod.GET)
+    @ResponseBody
+    public User viewUserById(String userId){
+        return userService.viewUserById(userId);
+    }
 
+    @RequestMapping(value = "updateUser",method = RequestMethod.POST)
+    @ResponseBody
+    public Result updateUser(@RequestBody User user){
+        try {
+            userService.updateUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.fail("修改失败");
+        }
+        return Result.succ("更新成功");
     }
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface MenuMapper {
     Menu getMenuById(String id);
     List<Menu> getAllMenu();
+    List<Menu> getUserMenu(String userId);
 }

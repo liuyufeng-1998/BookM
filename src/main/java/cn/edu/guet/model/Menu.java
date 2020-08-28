@@ -8,7 +8,7 @@ public class Menu implements Serializable {
 
     private String id;
     private String pId;
-    private String name;
+    private String menuname;
     private String icon;
     private String url;
 
@@ -32,11 +32,11 @@ public class Menu implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return menuname;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.menuname = name;
     }
 
     public String getIcon() {

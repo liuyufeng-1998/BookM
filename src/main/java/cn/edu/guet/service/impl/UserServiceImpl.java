@@ -11,7 +11,22 @@ public class UserServiceImpl implements IUserService {
     UserMapper userMapper;
 
     @Override
+    public User viewUserById(String userId) {
+        return userMapper.viewUserById(userId);
+    }
+
+    @Override
+    public void updateUser(User user) throws Exception{
+        userMapper.updateUser(user);
+
+    }
+
+    @Override
     public User login(String username, String password) {
         return userMapper.login(username,password);
     }
+
+
+
+
 }

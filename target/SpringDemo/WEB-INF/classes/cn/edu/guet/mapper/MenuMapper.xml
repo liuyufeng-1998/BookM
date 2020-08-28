@@ -15,13 +15,16 @@
 	</resultMap>
 
 	<select id="getChildMenuByPID" resultType="menu">
-		SELECT c.* FROM menus c,menus p WHERE c.pid=p.id AND p.id=#{value}
+		SELECT c.* FROM menu c,menu p WHERE c.pid=p.id AND p.id=#{value}
 	</select>
 
-	<select id="getMenuById" resultMap="getMenuAndChildMenusMap">
+	<!--<select id="getMenuById" resultMap="getMenuAndChildMenusMap">
 		SELECT * FROM menus WHERE id=#{value}
 	</select>
 	<select id="getAllMenu" resultMap="getMenuAndChildMenusMap">
 		SELECT * FROM menus
+	</select>-->
+	<select id="getUserMenu" resultMap="getMenuAndChildMenusMap">
+		SELECT m.* FROM menu m,user_role ur,role_menu rm WHERE ur.roleid=rm.roleid AND m.id=rm.id AND ur.userId=#{id}
 	</select>
 </mapper>
